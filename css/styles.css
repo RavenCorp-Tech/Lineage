@@ -11,6 +11,7 @@
     --card-bg: #fff;
     --heading-color: #2c3e50;
     --accent-color: #3498db;
+    --accent-color-rgb: 52, 152, 219; /* RGB values of accent color */
     --person-border: rgba(0, 0, 0, 0.05);
     --glow-effect: none;
     --glow-color-1: transparent;
@@ -42,6 +43,7 @@
     --card-bg: #1e2235;
     --heading-color: #58a6ff;
     --accent-color: #5c90ff;
+    --accent-color-rgb: 92, 144, 255; /* RGB values of accent color */
     --person-border: rgba(255, 255, 255, 0.15);
     --glow-effect: 0 0 15px;
     
@@ -90,6 +92,11 @@ header {
     align-items: center;
 }
 
+.header-right {
+    display: flex;
+    align-items: center;
+}
+
 header h1 {
     margin-bottom: 0.5rem;
     font-size: 2rem;
@@ -118,6 +125,162 @@ nav ul li a:hover {
 nav ul li a.active {
     color: var(--accent-color);
     border-bottom: 2px solid var(--accent-color);
+}
+
+/* Search styles */
+.search-container {
+    position: relative;
+    margin-right: 2rem;
+}
+
+.search-box {
+    display: flex;
+    background-color: rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: all 0.3s;
+    width: 200px;
+}
+
+.search-box:focus-within {
+    background-color: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 0 0 2px var(--accent-color);
+}
+
+.search-box input {
+    background: transparent;
+    border: none;
+    color: var(--header-text);
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    width: 100%;
+    outline: none;
+}
+
+.search-box input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.search-box button {
+    background: transparent;
+    border: none;
+    color: var(--header-text);
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.search-box button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.search-suggestions {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: var(--card-bg);
+    border-radius: 4px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    margin-top: 5px;
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 100;
+    display: none;
+    border: 1px solid var(--border-color);
+}
+
+.search-suggestions.active {
+    display: block;
+}
+
+.suggestion-item {
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.2s;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.suggestion-item:last-child {
+    border-bottom: none;
+}
+
+.suggestion-item:hover {
+    background-color: rgba(0, 0, 0, 0.08);
+}
+
+.dark-theme .suggestion-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.suggestion-item .generation-indicator {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 10px;
+    border: 1px solid rgba(128, 128, 128, 0.3);
+}
+
+/* Generation indicators for search suggestions */
+.suggestion-item .gen-1-color {
+    background-color: var(--gen-1-color);
+}
+
+.suggestion-item .gen-2-color {
+    background-color: var(--gen-2-color);
+}
+
+.suggestion-item .gen-3-color {
+    background-color: var(--gen-3-color);
+}
+
+.suggestion-item .gen-4-color {
+    background-color: var(--gen-4-color);
+}
+
+.suggestion-item .gen-5-color {
+    background-color: var(--gen-5-color);
+}
+
+.suggestion-item .gen-6-color {
+    background-color: var(--gen-6-color);
+}
+
+.suggestion-item .gen-7-color {
+    background-color: var(--gen-7-color);
+}
+
+.suggestion-item .suggestion-name {
+    font-weight: 600;
+    color: #333;
+}
+
+.dark-theme .suggestion-item .suggestion-name {
+    color: #fff;
+}
+
+.suggestion-item .suggestion-details {
+    font-size: 0.8rem;
+    color: #555;
+    margin-left: auto;
+    font-weight: 500;
+}
+
+.dark-theme .suggestion-item .suggestion-details {
+    color: #bbb;
+}
+
+.highlighted-text {
+    background-color: rgba(var(--accent-color-rgb), 0.2);
+    font-weight: bold;
+    color: #333;
+}
+
+.dark-theme .highlighted-text {
+    color: #fff;
 }
 
 main {
@@ -632,6 +795,26 @@ footer {
 @media (max-width: 768px) {
     header {
         padding: 1rem;
+        flex-direction: column;
+    }
+    
+    header h1 {
+        margin-bottom: 1rem;
+    }
+    
+    .header-right {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .search-container {
+        margin-right: 0;
+        margin-bottom: 1rem;
+        width: 100%;
+    }
+    
+    .search-box {
+        width: 100%;
     }
 
     nav ul {
