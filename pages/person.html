@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Person Details - Family Lineage</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        .breadcrumb {
+            display: flex;
+            list-style: none;
+            background-color: #f8f9fa;
+            padding: 0.75rem 1rem;
+            border-radius: 4px;
+            margin-bottom: 2rem;
+        }
+        
+        .breadcrumb li {
+            margin-right: 0.5rem;
+        }
+        
+        .breadcrumb li:after {
+            content: '/';
+            margin-left: 0.5rem;
+            color: #6c757d;
+        }
+        
+        .breadcrumb li:last-child:after {
+            content: '';
+        }
+        
+        .breadcrumb a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+        
+        .person-detail {
+            display: flex;
+            flex-direction: column;
+            padding: 2rem;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .person-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        
+        .person-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background-color: #eee;
+            margin-right: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: #777;
+            overflow: hidden;
+        }
+        
+        .person-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .person-info {
+            flex: 1;
+        }
+        
+        .person-name {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .life-dates {
+            font-style: italic;
+            color: #666;
+            margin-bottom: 1rem;
+        }
+        
+        .life-details {
+            margin-bottom: 2rem;
+        }
+        
+        .life-details h3 {
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 0.5rem;
+        }
+        
+        .relationship-section {
+            margin-bottom: 2rem;
+        }
+        
+        .children-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .person-card {
+            padding: 1rem;
+            border-radius: 6px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+        
+        .person-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .person-card.male {
+            border-left: 5px solid #3498db;
+        }
+        
+        .person-card.female {
+            border-left: 5px solid #e74c3c;
+        }
+        
+        .back-to-parent {
+            display: inline-block;
+            margin-bottom: 2rem;
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .back-to-parent:before {
+            content: '← ';
+        }
+        
+        @media (max-width: 768px) {
+            .person-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .person-photo {
+                margin-right: 0;
+                margin-bottom: 1.5rem;
+            }
+            
+            .children-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Family Lineage</h1>
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="full-tree.html">Full Tree</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <ul class="breadcrumb" id="breadcrumb">
+            <li><a href="../index.html">Home</a></li>
+            <li id="person-name">Loading...</li>
+        </ul>
+        
+        <div id="parent-link-container"></div>
+        
+        <section class="person-detail">
+            <div class="loading">Loading person details...</div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; <span id="current-year"></span> Family Lineage. All Rights Reserved.</p>
+    </footer>
+
+    <script src="../js/data.js"></script>
+    <script>
+        // Set current year in footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+        
+        // Get URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const personId = urlParams.get('id');
+        
+        // Wait for the DOM to be fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            if (personId && Object.keys(familyData).length > 0) {
+                loadPersonDetails(personId);
+            } else {
+                document.querySelector('.person-detail').innerHTML = '<p>Person not found or data not loaded.</p>';
+            }
+        });
+        
+        function loadPersonDetails(id) {
+            // Find which generation this person belongs to
+            let generation = '';
+            let personData = null;
+            
+            for (const gen in familyData) {
+                if (familyData[gen][id]) {
+                    generation = gen;
+                    personData = familyData[gen][id];
+                    break;
+                }
+            }
+            
+            if (!personData) {
+                document.querySelector('.person-detail').innerHTML = '<p>Person not found.</p>';
+                return;
+            }
+            
+            // Update breadcrumb
+            document.getElementById('person-name').textContent = personData.displayName || personData.name;
+            
+            // Add parent link if exists
+            if (personData.parent) {
+                const parentLinkContainer = document.getElementById('parent-link-container');
+                
+                // Find parent data
+                let parentData = null;
+                for (const gen in familyData) {
+                    if (familyData[gen][personData.parent]) {
+                        parentData = familyData[gen][personData.parent];
+                        break;
+                    }
+                }
+                
+                const parentName = parentData ? (parentData.displayName || parentData.name) : personData.parent;
+                
+                parentLinkContainer.innerHTML = `<a href="person.html?id=${personData.parent}" class="back-to-parent">Back to ${parentName}</a>`;
+            }
+            
+            // Create person detail content
+            const personDetailSection = document.querySelector('.person-detail');
+            
+            // Determine generation number
+            const genNumber = generation.replace('generation', '');
+            
+            // Get nickname if available
+            const nicknameDisplay = personData.nickname ? `<p>Also known as: ${personData.nickname}</p>` : '';
+            
+            // Get haaji status if available
+            const haajiDisplay = personData.isHaaji ? `<p class="haaji-designation"><i class="fas fa-mosque"></i> Also known as Haaji Sahab</p>` : '';
+            
+            // Create HTML for person details
+            let detailHTML = `
+                <div class="person-header">
+                    <div class="person-photo">
+                        <span>${personData.name.charAt(0)}</span>
+                    </div>
+                    <div class="person-info">
+                        <h2 class="person-name">${personData.name}</h2>
+                        ${nicknameDisplay}
+                        ${haajiDisplay}
+                        ${(personData.birth || personData.death) ? `<p class="life-dates">${personData.birth || '?'} - ${personData.death || 'Present'}</p>` : ''}
+                        <p>Generation ${genNumber}</p>
+                        <p>Gender: ${personData.gender.charAt(0).toUpperCase() + personData.gender.slice(1)}</p>
+                    </div>
+                </div>
+                
+                <div class="life-details">
+                    <h3>About ${personData.name}</h3>
+                    <p>This section would contain biographical information about ${personData.name}.</p>
+                </div>
+            `;
+            
+            // Add spouse information if available
+            if (personData.spouse) {
+                detailHTML += `
+                    <div class="relationship-section">
+                        <h3>Spouse</h3>
+                        <div class="spouse-info">
+                            <p><strong>${personData.spouse.name}</strong></p>
+                            <p>${personData.spouse.birth || '?'} - ${personData.spouse.death || 'Present'}</p>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            // Add children information if available
+            if (personData.children && personData.children.length > 0) {
+                detailHTML += `
+                    <div class="relationship-section">
+                        <h3>Children</h3>
+                        <div class="children-grid" id="children-grid">
+                            <!-- Children will be added here -->
+                        </div>
+                    </div>
+                `;
+            }
+            
+            personDetailSection.innerHTML = detailHTML;
+            
+            // If there are children, add them to the grid
+            if (personData.children && personData.children.length > 0) {
+                const childrenGrid = document.getElementById('children-grid');
+                
+                // Find the next generation key
+                const nextGenNumber = parseInt(genNumber) + 1;
+                const nextGenKey = `generation${nextGenNumber}`;
+                
+                if (familyData[nextGenKey]) {
+                    personData.children.forEach(childId => {
+                        const childData = familyData[nextGenKey][childId];
+                        
+                        if (childData) {
+                            const childElement = document.createElement('div');
+                            childElement.className = `person-card ${childData.gender}`;
+                            childElement.innerHTML = `
+                                <h4>${childData.name}</h4>
+                                <p>${childData.birth || '?'} - ${childData.death || 'Present'}</p>
+                            `;
+                            
+                            // Add click event to navigate to this child's page
+                            childElement.addEventListener('click', function() {
+                                window.location.href = `person.html?id=${childId}`;
+                            });
+                            
+                            childrenGrid.appendChild(childElement);
+                        }
+                    });
+                }
+            }
+        }
+    </script>
+</body>
+</html>

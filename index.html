@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Family Lineage</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <h1>Family Lineage</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="pages/about.html">About</a></li>
+                <li><a href="pages/full-tree.html">Full Tree</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="intro">
+            <h2>Welcome to Our Family History</h2>
+            <p>Explore the rich history of our family across 7 generations. Each generation is color-coded, making it easier to navigate through the family tree.</p>
+            <p>Click on any family member to explore their lineage in detail.</p>
+        </section>
+
+        <section class="tree-container">
+            <h2>First Generation</h2>
+            <div id="generation-1" class="generation gen-1">
+                <!-- First generation content will be added here -->
+                <div class="loading">Loading family data...</div>
+            </div>
+        </section>
+
+        <section class="legend">
+            <h3>Legend</h3>
+            <div class="legend-item">
+                <div class="legend-color gen-1-color"></div>
+                <div class="legend-label">Generation 1</div>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color gen-2-color"></div>
+                <div class="legend-label">Generation 2</div>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color gen-3-color"></div>
+                <div class="legend-label">Generation 3</div>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color gen-4-color"></div>
+                <div class="legend-label">Generation 4</div>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color gen-5-color"></div>
+                <div class="legend-label">Generation 5</div>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color gen-6-color"></div>
+                <div class="legend-label">Generation 6</div>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color gen-7-color"></div>
+                <div class="legend-label">Generation 7</div>
+            </div>
+            <div class="gender-legend">
+                <div class="legend-item">
+                    <div class="legend-color male-color"></div>
+                    <div class="legend-label">Male</div>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color female-color"></div>
+                    <div class="legend-label">Female</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; <span id="current-year"></span> Family Lineage. All Rights Reserved.</p>
+    </footer>
+
+    <script src="js/data.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

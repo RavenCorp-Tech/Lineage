@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Family Lineage</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Family Lineage</h1>
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="about.html" class="active">About</a></li>
+                <li><a href="full-tree.html">Full Tree</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="about">
+            <h2>About This Family Tree</h2>
+            <p>This interactive family tree website was created to document and preserve our family's rich history spanning seven generations. The purpose of this project is to help family members connect with their roots and understand their place in our family's legacy.</p>
+            
+            <h3>How to Navigate</h3>
+            <p>This website is designed to be intuitive and easy to navigate:</p>
+            <ul>
+                <li>Each generation is color-coded for easy identification</li>
+                <li>Men and women are indicated with different colors</li>
+                <li>Click on any individual to see their direct descendants</li>
+                <li>Use the navigation menu to move between different views of the family tree</li>
+                <li>The "Full Tree" page shows all seven generations in a comprehensive view</li>
+            </ul>
+
+            <h3>Color Legend</h3>
+            <p>We use colors to help you navigate the complex relationships:</p>
+            <ul>
+                <li>Each generation has a distinct background color</li>
+                <li>Males have a blue indicator</li>
+                <li>Females have a red indicator</li>
+            </ul>
+
+            <h3>About the Project</h3>
+            <p>This family tree project was created using HTML, CSS, and JavaScript to provide an interactive and responsive experience across all devices. Family information was gathered through interviews, historical records, and family documents.</p>
+
+            <h3>Privacy Notice</h3>
+            <p>This family tree website is intended for family use only. Please respect the privacy of living individuals represented in this tree.</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; <span id="current-year"></span> Family Lineage. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        // Set current year in footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
