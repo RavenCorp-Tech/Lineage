@@ -531,6 +531,7 @@ const familyData = {
             id: "sadiq_husayn",
             name: "Sadiq Husayn",
             displayName: "Sadiq Husayn",
+            isHaaji: true,
             gender: "male",
             parent: "jauhar_ali",
             children: ["muhammad_asif", "mehroz", "muhammad_talib"]
@@ -1145,10 +1146,11 @@ const familyData = {
         muhammad_rasheed: {
             id: "muhammad_rasheed",
             name: "Muhammad Rasheed",
-            displayName: "Muhammad Rasheed",
+            nickname: "Munne",
+            displayName: "Muhammad Rasheed (Munne)",
             gender: "male",
             parent: "muhammad_umar",
-            children: []
+            children: ["muskaan", "saniya"]
         },
         jahanaara: {
             id: "jahanaara",
@@ -1206,15 +1208,16 @@ const familyData = {
             displayName: "Nazar-e-Aalam",
             gender: "male",
             parent: "muhammad_saeed",
-            children: []
+            children: ["abdullah", "nazar_daughter"]
         },
         qamar_hasan: {
             id: "qamar_hasan",
             name: "Qamar Hasan",
-            displayName: "Qamar Hasan",
+            nickname: "Chunne",
+            displayName: "Qamar Hasan (Chunne)",
             gender: "male",
             parent: "muhammad_saeed",
-            children: []
+            children: ["ahad", "qamar_son", "qamar_daughter"]
         },
         najrun_nisa: {
             id: "najrun_nisa",
@@ -1245,10 +1248,11 @@ const familyData = {
         muhammad_afsar: {
             id: "muhammad_afsar",
             name: "Muhammad Afsar",
-            displayName: "Muhammad Afsar",
+            nickname: "Furtali",
+            displayName: "Muhammad Afsar (Furtali)",
             gender: "male",
             parent: "zahid_husayn",
-            children: []
+            children: ["zaid_khan", "khursheed_ahmad"]
         },
         mini: {
             id: "mini",
@@ -1332,10 +1336,11 @@ const familyData = {
         abraar_ahmad: {
             id: "abraar_ahmad",
             name: "Abraar Ahmad",
-            displayName: "Abraar Ahmad",
+            nickname: "Tinku",
+            displayName: "Abraar Ahmad (Tinku)",
             gender: "male",
             parent: "rafeeq_ahmad_babbu",
-            children: []
+            children: ["abraar_son"]
         },
         rinku_ahmad: {
             id: "rinku_ahmad",
@@ -1374,10 +1379,11 @@ const familyData = {
         muhammad_husayn: {
             id: "muhammad_husayn",
             name: "Muhammad Husayn",
-            displayName: "Muhammad Husayn",
+            nickname: "Raju",
+            displayName: "Muhammad Husayn (Raju)",
             gender: "male",
             parent: "muhammad_raees",
-            children: []
+            children: ["atif_ahmad_raju", "asifa_ahmad", "asghar_ahmad"]
         },
         ruqayyah_khatoon: {
             id: "ruqayyah_khatoon",
@@ -1395,7 +1401,7 @@ const familyData = {
             displayName: "Suhayl Ahmad",
             gender: "male",
             parent: "rashid_husayn",
-            children: []
+            children: ["sufyan_ahmad", "sahar"]
         },
         zubayr_ahmad: {
             id: "zubayr_ahmad",
@@ -1403,7 +1409,7 @@ const familyData = {
             displayName: "Zubayr Ahmad",
             gender: "male",
             parent: "rashid_husayn",
-            children: []
+            children: ["zuhayb_ahmad", "uzayn_ahmad"]
         },
         tufayl_ahmad: {
             id: "tufayl_ahmad",
@@ -1411,7 +1417,7 @@ const familyData = {
             displayName: "Tufayl Ahmad",
             gender: "male",
             parent: "rashid_husayn",
-            children: []
+            children: ["inaya_ahmad", "haniya_ahmad"]
         },
         naadira_khatoon: {
             id: "naadira_khatoon",
@@ -1434,10 +1440,11 @@ const familyData = {
         muhammad_asif: {
             id: "muhammad_asif",
             name: "Muhammad Asif",
-            displayName: "Muhammad Asif",
+            nickname: "Jaanam",
+            displayName: "Muhammad Asif (Jaanam)",
             gender: "male",
             parent: "sadiq_husayn",
-            children: []
+            children: ["nimra"]
         },
         mehroz: {
             id: "mehroz",
@@ -2307,6 +2314,189 @@ const familyData = {
             displayName: "Son [Unnamed]",
             gender: "male",
             parent: "armaan_ahmad",
+            children: []
+        }
+    },
+    
+    generation7: {
+        // Children of Muhammad Rasheed (Munne)
+        muskaan: {
+            id: "muskaan",
+            name: "Muskaan",
+            displayName: "Muskaan",
+            gender: "female",
+            parent: "muhammad_rasheed",
+            children: []
+        },
+        saniya: {
+            id: "saniya",
+            name: "Saniya",
+            displayName: "Saniya",
+            gender: "female",
+            parent: "muhammad_rasheed",
+            children: []
+        },
+
+        // Children of Nazar-e-Aalam
+        abdullah: {
+            id: "abdullah",
+            name: "Abdullah",
+            displayName: "Abdullah",
+            gender: "male",
+            parent: "nazar_e_aalam",
+            children: []
+        },
+        nazar_daughter: {
+            id: "nazar_daughter",
+            name: "Daughter",
+            displayName: "Daughter [unnamed]",
+            gender: "female",
+            parent: "nazar_e_aalam",
+            children: []
+        },
+
+        // Children of Qamar Hasan (Chunne)
+        ahad: {
+            id: "ahad",
+            name: "Ahad",
+            displayName: "Ahad",
+            gender: "male",
+            parent: "qamar_hasan",
+            children: []
+        },
+        qamar_son: {
+            id: "qamar_son",
+            name: "Son",
+            displayName: "Son [unnamed]",
+            gender: "male",
+            parent: "qamar_hasan",
+            children: []
+        },
+        qamar_daughter: {
+            id: "qamar_daughter",
+            name: "Daughter",
+            displayName: "Daughter [unnamed]",
+            gender: "female",
+            parent: "qamar_hasan",
+            children: []
+        },
+
+        // Children of Muhammad Afsar (Furtali)
+        zaid_khan: {
+            id: "zaid_khan",
+            name: "Zaid Khan",
+            displayName: "Zaid Khan",
+            gender: "male",
+            parent: "muhammad_afsar",
+            children: []
+        },
+        khursheed_ahmad: {
+            id: "khursheed_ahmad",
+            name: "Khursheed Ahmad",
+            nickname: "chhotu",
+            displayName: "Khursheed Ahmad (chhotu)",
+            gender: "male",
+            parent: "muhammad_afsar",
+            children: []
+        },
+
+        // Children of Abraar Ahmad (Tinku)
+        abraar_son: {
+            id: "abraar_son",
+            name: "Son",
+            displayName: "Son [unnamed]",
+            gender: "male",
+            parent: "abraar_ahmad",
+            children: []
+        },
+
+        // Children of Muhammad Husayn (Raju)
+        atif_ahmad_raju: {
+            id: "atif_ahmad_raju",
+            name: "Atif Ahmad",
+            displayName: "Atif Ahmad",
+            gender: "male",
+            parent: "muhammad_husayn",
+            children: []
+        },
+        asifa_ahmad: {
+            id: "asifa_ahmad",
+            name: "Asifa Ahmad",
+            displayName: "Asifa Ahmad",
+            gender: "female",
+            parent: "muhammad_husayn",
+            children: []
+        },
+        asghar_ahmad: {
+            id: "asghar_ahmad",
+            name: "Asghar Ahmad",
+            displayName: "Asghar Ahmad",
+            gender: "male",
+            parent: "muhammad_husayn",
+            children: []
+        },
+
+        // Children of Suhayl Ahmad
+        sufyan_ahmad: {
+            id: "sufyan_ahmad",
+            name: "Sufyan Ahmad",
+            displayName: "Sufyan Ahmad",
+            gender: "male",
+            parent: "suhayl_ahmad",
+            children: []
+        },
+        sahar: {
+            id: "sahar",
+            name: "Sahar",
+            displayName: "Sahar",
+            gender: "female",
+            parent: "suhayl_ahmad",
+            children: []
+        },
+
+        // Children of Zubayr Ahmad
+        zuhayb_ahmad: {
+            id: "zuhayb_ahmad",
+            name: "Zuhayb Ahmad",
+            displayName: "Zuhayb Ahmad",
+            gender: "male",
+            parent: "zubayr_ahmad",
+            children: []
+        },
+        uzayn_ahmad: {
+            id: "uzayn_ahmad",
+            name: "Uzayn Ahmad",
+            displayName: "Uzayn Ahmad",
+            gender: "male",
+            parent: "zubayr_ahmad",
+            children: []
+        },
+
+        // Children of Tufayl Ahmad
+        inaya_ahmad: {
+            id: "inaya_ahmad",
+            name: "Inaya Ahmad",
+            displayName: "Inaya Ahmad",
+            gender: "female",
+            parent: "tufayl_ahmad",
+            children: []
+        },
+        haniya_ahmad: {
+            id: "haniya_ahmad",
+            name: "Haniya Ahmad",
+            displayName: "Haniya Ahmad",
+            gender: "female",
+            parent: "tufayl_ahmad",
+            children: []
+        },
+
+        // Children of Muhammad Asif (Jaanam)
+        nimra: {
+            id: "nimra",
+            name: "Nimra",
+            displayName: "Nimra",
+            gender: "female",
+            parent: "muhammad_asif",
             children: []
         }
     }

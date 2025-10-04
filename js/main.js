@@ -9,9 +9,30 @@ document.addEventListener('DOMContentLoaded', function() {
         const generation1Container = document.getElementById('generation-1');
         if (generation1Container) {
             initializeTree();
-        }
-        
-        // Check if we need to initialize generation views
+
+            // Load all generations automatically
+            const maxGenerations = 7;
+            for (let i = 2; i <= maxGenerations; i++) {
+                if (familyData[`generation${i}`]) {
+                    // Create sections for each generation
+                    const sectionEl = document.createElement('section');
+                    sectionEl.className = 'tree-container';
+                    
+                    const headingEl = document.createElement('h2');
+                    headingEl.textContent = `Generation ${i}`;
+                    sectionEl.appendChild(headingEl);
+                    
+                    const genContainerEl = document.createElement('div');
+                    genContainerEl.id = `generation-${i}`;
+                    genContainerEl.className = `generation gen-${i}`;
+                    genContainerEl.innerHTML = '<div class="loading">Loading...</div>';
+                    sectionEl.appendChild(genContainerEl);
+                    
+                    document.querySelector('main').appendChild(sectionEl);
+                    loadGeneration(i);
+                }
+            }
+        }        // Check if we need to initialize a specific generation view
         const urlParams = new URLSearchParams(window.location.search);
         const showGeneration = urlParams.get('generation');
         if (showGeneration) {
@@ -53,24 +74,6 @@ function initializeTree() {
                     childrenContainer.appendChild(childElement);
                 }
             });
-            
-            // Add view more button for navigating to generation 2
-            const viewMoreBtn = document.createElement('button');
-            viewMoreBtn.className = 'view-more-btn';
-            viewMoreBtn.textContent = 'View Generation 2 Details';
-            viewMoreBtn.addEventListener('click', function() {
-                document.querySelector('main').innerHTML += `
-                    <section class="tree-container">
-                        <h2>Second Generation</h2>
-                        <div id="generation-2" class="generation gen-2">
-                            <div class="loading">Loading...</div>
-                        </div>
-                    </section>
-                `;
-                loadGeneration(2);
-            });
-            
-            generation1Container.appendChild(viewMoreBtn);
         }
     }
 }
@@ -199,26 +202,7 @@ function loadGeneration(genNumber) {
         generationContainer.appendChild(familyGroup);
     }
     
-    // Add button to load next generation if needed
-    const nextGenNumber = genNumber + 1;
-    if (familyData[`generation${nextGenNumber}`]) {
-        const viewMoreBtn = document.createElement('button');
-        viewMoreBtn.className = 'view-more-btn';
-        viewMoreBtn.textContent = `View Generation ${nextGenNumber} Details`;
-        viewMoreBtn.addEventListener('click', function() {
-            document.querySelector('main').innerHTML += `
-                <section class="tree-container">
-                    <h2>Generation ${nextGenNumber}</h2>
-                    <div id="generation-${nextGenNumber}" class="generation gen-${nextGenNumber}">
-                        <div class="loading">Loading...</div>
-                    </div>
-                </section>
-            `;
-            loadGeneration(nextGenNumber);
-        });
-        
-        generationContainer.appendChild(viewMoreBtn);
-    }
+    // No need to add buttons for next generations as they're all loaded automatically
 }
 
 // Function to create a new person page dynamically
