@@ -103,6 +103,35 @@
             padding-bottom: 0.5rem;
         }
         
+        .lineage-info {
+            margin-top: 1rem;
+            padding: 1rem;
+            background-color: var(--card-bg);
+            border-left: 4px solid var(--accent-color);
+            border-radius: 4px;
+            box-shadow: 0 1px 3px var(--shadow-color);
+            line-height: 1.8;
+            font-size: 0.95rem;
+        }
+        
+        .lineage-info h4 {
+            margin-bottom: 0.5rem;
+            color: var(--accent-color);
+            font-size: 1rem;
+        }
+        
+        .lineage-ancestor {
+            font-weight: 500;
+            color: var(--heading-color);
+            transition: color 0.2s;
+        }
+        
+        .lineage-ancestor:hover {
+            color: var(--accent-color);
+            cursor: pointer;
+            text-decoration: underline;
+        }
+        
         .relationship-section {
             margin-bottom: 2rem;
         }
@@ -216,6 +245,76 @@
             }
         });
         
+        // Function to get the complete lineage of a person back to the first generation
+        function getAncestryLineage(personId) {
+            const lineage = [];
+            let currentId = personId;
+            let currentPerson = null;
+            let currentGen = '';
+            
+            // Find the person and add them to lineage
+            for (const gen in familyData) {
+                if (familyData[gen][currentId]) {
+                    currentPerson = familyData[gen][currentId];
+                    currentGen = gen;
+                    // Add the person's name, preferring displayName if available
+                    lineage.push(currentPerson.displayName || currentPerson.name);
+                    break;
+                }
+            }
+            
+            // Trace back through parents
+            while (currentPerson && currentPerson.parent) {
+                currentId = currentPerson.parent;
+                currentPerson = null;
+                
+                // Find the parent
+                for (const gen in familyData) {
+                    if (familyData[gen][currentId]) {
+                        currentPerson = familyData[gen][currentId];
+                        lineage.push(currentPerson.displayName || currentPerson.name);
+                        break;
+                    }
+                }
+            }
+            
+            // Store the person IDs with their names for links
+            const lineageIdsMap = new Map();
+            let currId = personId;
+            let currPerson;
+            
+            // Build a map of names to IDs for linking
+            while (currId) {
+                currPerson = null;
+                for (const gen in familyData) {
+                    if (familyData[gen][currId]) {
+                        currPerson = familyData[gen][currId];
+                        const personName = currPerson.displayName || currPerson.name;
+                        lineageIdsMap.set(personName, currId);
+                        break;
+                    }
+                }
+                if (currPerson && currPerson.parent) {
+                    currId = currPerson.parent;
+                } else {
+                    break;
+                }
+            }
+            
+            // Skip the current person (first in array) and format the lineage with clickable links
+            if (lineage.length > 1) {
+                return lineage.slice(1).map((name, index) => {
+                    const ancestorId = lineageIdsMap.get(name);
+                    if (index === lineage.length - 2) { // Last ancestor
+                        return `<a href="person.html?id=${ancestorId}" class="lineage-ancestor">${name}</a>`;
+                    }
+                    return `<a href="person.html?id=${ancestorId}" class="lineage-ancestor">${name}</a> ← `;
+                }).join('');
+            } else {
+                return "No ancestry information available";
+            }
+        }
+
         function loadPersonDetails(id) {
             // Find which generation this person belongs to
             let generation = '';
@@ -280,6 +379,10 @@
                         ${(personData.birth || personData.death) ? `<p class="life-dates">${personData.birth || '?'} - ${personData.death || 'Present'}</p>` : ''}
                         <p>Generation ${genNumber}</p>
                         <p>Gender: ${personData.gender.charAt(0).toUpperCase() + personData.gender.slice(1)}</p>
+                        <div class="lineage-info">
+                            <h4>Family Lineage</h4>
+                            <p>${personData.name} ${personData.gender === 'male' ? 'son' : 'daughter'} of ${getAncestryLineage(id)}</p>
+                        </div>
                     </div>
                 </div>
                 
