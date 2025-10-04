@@ -1,26 +1,93 @@
 /* Base styles */
+:root {
+    /* Light theme (default) */
+    --bg-color: #f5f5f5;
+    --text-color: #333;
+    --header-bg: #2c3e50;
+    --header-text: #fff;
+    --shadow-color: rgba(0, 0, 0, 0.15);
+    --hover-shadow-color: rgba(0, 0, 0, 0.25);
+    --border-color: #ddd;
+    --card-bg: #fff;
+    --heading-color: #2c3e50;
+    --accent-color: #3498db;
+    --person-border: rgba(0, 0, 0, 0.05);
+    --glow-effect: none;
+    --glow-color-1: transparent;
+    --glow-color-2: transparent;
+    --glow-color-3: transparent;
+    --glow-color-4: transparent;
+    --glow-color-5: transparent;
+    --glow-color-6: transparent;
+    --glow-color-7: transparent;
+    
+    /* Generation colors - light theme */
+    --gen-1-color: #d4e6f9;
+    --gen-2-color: #d4f9e6;
+    --gen-3-color: #f9e6d4;
+    --gen-4-color: #e6d4f9;
+    --gen-5-color: #d4f9f9;
+    --gen-6-color: #f9d4d4;
+    --gen-7-color: #f9f9d4;
+}
+
+.dark-theme {
+    --bg-color: #12151d;
+    --text-color: #ffffff;
+    --header-bg: #1e2235;
+    --header-text: #ffffff;
+    --shadow-color: rgba(88, 166, 255, 0.3);
+    --hover-shadow-color: rgba(88, 166, 255, 0.5);
+    --border-color: #3d4251;
+    --card-bg: #1e2235;
+    --heading-color: #58a6ff;
+    --accent-color: #5c90ff;
+    --person-border: rgba(255, 255, 255, 0.15);
+    --glow-effect: 0 0 15px;
+    
+    /* Generation colors - vibrant dark theme */
+    --gen-1-color: #1c3c78; /* Brighter blue */
+    --gen-2-color: #1e6e50; /* Brighter green */
+    --gen-3-color: #96432c; /* Brighter orange/brown */
+    --gen-4-color: #5c3c8c; /* Brighter purple */
+    --gen-5-color: #1c6e6e; /* Brighter teal */
+    --gen-6-color: #8c3c50; /* Brighter red/pink */
+    --gen-7-color: #787830; /* Brighter yellow */
+    
+    /* Glow colors for each generation - more vibrant */
+    --glow-color-1: rgba(88, 166, 255, 0.6);
+    --glow-color-2: rgba(85, 255, 170, 0.6);
+    --glow-color-3: rgba(255, 146, 43, 0.6);
+    --glow-color-4: rgba(191, 131, 255, 0.6);
+    --glow-color-5: rgba(0, 210, 210, 0.6);
+    --glow-color-6: rgba(255, 92, 92, 0.6);
+    --glow-color-7: rgba(255, 255, 85, 0.6);
+}
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease;
 }
 
 body {
-    .person:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
-}-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
-    color: #333;
-    background-color: #f5f5f5;
+    color: var(--text-color);
+    background-color: var(--bg-color);
     padding-bottom: 2rem;
+    transition: background-color 0.5s ease, color 0.5s ease;
 }
 
 header {
-    background-color: #2c3e50;
-    color: white;
+    background-color: var(--header-bg);
+    color: var(--header-text);
     padding: 1rem 2rem;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 5px var(--shadow-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 header h1 {
@@ -38,19 +105,19 @@ nav ul li {
 }
 
 nav ul li a {
-    color: white;
+    color: var(--header-text);
     text-decoration: none;
     font-weight: 500;
     transition: color 0.3s;
 }
 
 nav ul li a:hover {
-    color: #3498db;
+    color: var(--accent-color);
 }
 
 nav ul li a.active {
-    color: #3498db;
-    border-bottom: 2px solid #3498db;
+    color: var(--accent-color);
+    border-bottom: 2px solid var(--accent-color);
 }
 
 main {
@@ -65,14 +132,14 @@ section {
 
 h2 {
     margin-bottom: 1.5rem;
-    color: #2c3e50;
-    border-bottom: 1px solid #ddd;
+    color: var(--heading-color);
+    border-bottom: 1px solid var(--border-color);
     padding-bottom: 0.5rem;
 }
 
 h3 {
     margin-bottom: 1rem;
-    color: #2c3e50;
+    color: var(--heading-color);
 }
 
 /* Tree styles */
@@ -87,7 +154,8 @@ h3 {
     padding: 2rem;
     margin-bottom: 2rem;
     border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px var(--shadow-color);
+    transition: background-color 0.3s;
 }
 
 .person {
@@ -96,37 +164,92 @@ h3 {
     padding: 1rem;
     border-radius: 6px;
     text-align: center;
-    transition: transform 0.3s, box-shadow 0.3s;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out, background-color 0.3s, border 0.3s;
+    box-shadow: 0 3px 6px var(--shadow-color);
     cursor: pointer;
     width: 220px;
-    background-color: white;
-    border: 1px solid rgba(0, 0, 0, 0.05);
+    background-color: var(--card-bg);
+    border: 1px solid var(--person-border);
+    outline: none;
+}
+
+.person:focus {
+    outline: none;
+}
+
+.dark-theme .person:focus {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
 }
 
 .person:hover {
     transform: translateY(-5px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 6px 18px var(--hover-shadow-color);
+}
+
+.dark-theme .gen-1 .person:hover {
+    box-shadow: 0 0 25px var(--glow-color-1);
+    transform: translateY(-8px) scale(1.03);
+    border-color: rgba(88, 166, 255, 0.8);
+}
+
+.dark-theme .gen-2 .person:hover {
+    box-shadow: 0 0 25px var(--glow-color-2);
+    transform: translateY(-8px) scale(1.03);
+    border-color: rgba(85, 255, 170, 0.8);
+}
+
+.dark-theme .gen-3 .person:hover {
+    box-shadow: 0 0 25px var(--glow-color-3);
+    transform: translateY(-8px) scale(1.03);
+    border-color: rgba(255, 146, 43, 0.8);
+}
+
+.dark-theme .gen-4 .person:hover {
+    box-shadow: 0 0 25px var(--glow-color-4);
+    transform: translateY(-8px) scale(1.03);
+    border-color: rgba(191, 131, 255, 0.8);
+}
+
+.dark-theme .gen-5 .person:hover {
+    box-shadow: 0 0 25px var(--glow-color-5);
+    transform: translateY(-8px) scale(1.03);
+    border-color: rgba(0, 210, 210, 0.8);
+}
+
+.dark-theme .gen-6 .person:hover {
+    box-shadow: 0 0 25px var(--glow-color-6);
+    transform: translateY(-8px) scale(1.03);
+    border-color: rgba(255, 92, 92, 0.8);
+}
+
+.dark-theme .gen-7 .person:hover {
+    box-shadow: 0 0 25px var(--glow-color-7);
+    transform: translateY(-8px) scale(1.03);
+    border-color: rgba(255, 255, 85, 0.8);
 }
 
 .person h4 {
     margin-bottom: 0.5rem;
     font-size: 1.2rem;
+    color: var(--heading-color);
 }
 
 .person p {
     font-size: 0.9rem;
     margin-bottom: 0.3rem;
+    color: var(--text-color);
 }
 
 .person .dates {
     font-style: italic;
     font-size: 0.85rem;
     opacity: 0.8;
+    color: var(--text-color);
 }
 
 .person .haaji-designation {
-    color: #28a745;
+    color: var(--accent-color);
     font-weight: 500;
     margin-bottom: 0.5rem;
 }
@@ -165,17 +288,28 @@ h3 {
     display: block;
     margin: 2rem auto;
     padding: 0.8rem 1.5rem;
-    background-color: #3498db;
+    background-color: var(--accent-color);
     color: white;
     border: none;
     border-radius: 4px;
     font-size: 1rem;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: all 0.3s ease;
 }
 
 .view-more-btn:hover {
     background-color: #2980b9;
+    transform: translateY(-2px);
+}
+
+.dark-theme .view-more-btn {
+    background-color: #1f6feb;
+    box-shadow: 0 0 10px rgba(88, 166, 255, 0.4);
+}
+
+.dark-theme .view-more-btn:hover {
+    background-color: #388bfd;
+    box-shadow: 0 0 15px rgba(88, 166, 255, 0.6);
 }
 
 .connection-line {
@@ -198,36 +332,136 @@ h3 {
 
 /* Generation colors */
 .gen-1 {
-    background-color: #e3f2fd; /* Light Blue */
+    background-color: var(--gen-1-color); /* Blue */
 }
 
 .gen-2 {
-    background-color: #e8f5e9; /* Light Green */
+    background-color: var(--gen-2-color); /* Mint Green */
 }
 
 .gen-3 {
-    background-color: #fff3e0; /* Light Orange */
+    background-color: var(--gen-3-color); /* Peach */
 }
 
 .gen-4 {
-    background-color: #f3e5f5; /* Light Purple */
+    background-color: var(--gen-4-color); /* Lavender */
 }
 
 .gen-5 {
-    background-color: #e0f7fa; /* Light Cyan */
+    background-color: var(--gen-5-color); /* Aqua */
 }
 
 .gen-6 {
-    background-color: #ffebee; /* Light Red */
+    background-color: var(--gen-6-color); /* Rose */
 }
 
 .gen-7 {
-    background-color: #f9fbe7; /* Light Yellow-Green */
+    background-color: var(--gen-7-color); /* Golden Yellow */
+}
+
+/* Dark theme glow effects for each generation */
+.dark-theme .gen-1 .person {
+    box-shadow: var(--glow-effect) var(--glow-color-1);
+}
+
+.dark-theme .gen-2 .person {
+    box-shadow: var(--glow-effect) var(--glow-color-2);
+}
+
+.dark-theme .gen-3 .person {
+    box-shadow: var(--glow-effect) var(--glow-color-3);
+}
+
+.dark-theme .gen-4 .person {
+    box-shadow: var(--glow-effect) var(--glow-color-4);
+}
+
+.dark-theme .gen-5 .person {
+    box-shadow: var(--glow-effect) var(--glow-color-5);
+}
+
+.dark-theme .gen-6 .person {
+    box-shadow: var(--glow-effect) var(--glow-color-6);
+}
+
+.dark-theme .gen-7 .person {
+    box-shadow: var(--glow-effect) var(--glow-color-7);
+}
+
+/* Active generation indicator for dark theme */
+.dark-theme .gen-1::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--glow-color-1), transparent);
+}
+
+.dark-theme .gen-2::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--glow-color-2), transparent);
+}
+
+.dark-theme .gen-3::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--glow-color-3), transparent);
+}
+
+.dark-theme .gen-4::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--glow-color-4), transparent);
+}
+
+.dark-theme .gen-5::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--glow-color-5), transparent);
+}
+
+.dark-theme .gen-6::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--glow-color-6), transparent);
+}
+
+.dark-theme .gen-7::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--glow-color-7), transparent);
 }
 
 /* Gender colors */
 .male {
-    border-left: 5px solid #3498db;
+    border-left: 5px solid var(--accent-color);
 }
 
 .female {
@@ -240,9 +474,9 @@ h3 {
     flex-direction: column;
     margin-top: 2rem;
     padding: 1rem;
-    background-color: white;
+    background-color: var(--card-bg);
     border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 5px var(--shadow-color);
 }
 
 .legend-item {
@@ -256,51 +490,117 @@ h3 {
     height: 20px;
     margin-right: 1rem;
     border-radius: 4px;
+    transition: box-shadow 0.3s;
+}
+
+/* Dark theme legend colors with glow */
+.dark-theme .gen-1-color {
+    box-shadow: 0 0 8px var(--glow-color-1);
+    border: 1px solid rgba(88, 166, 255, 0.8);
+}
+
+.dark-theme .gen-2-color {
+    box-shadow: 0 0 8px var(--glow-color-2);
+    border: 1px solid rgba(85, 255, 170, 0.8);
+}
+
+.dark-theme .gen-3-color {
+    box-shadow: 0 0 8px var(--glow-color-3);
+    border: 1px solid rgba(255, 146, 43, 0.8);
+}
+
+.dark-theme .gen-4-color {
+    box-shadow: 0 0 8px var(--glow-color-4);
+    border: 1px solid rgba(191, 131, 255, 0.8);
+}
+
+.dark-theme .gen-5-color {
+    box-shadow: 0 0 8px var(--glow-color-5);
+    border: 1px solid rgba(0, 210, 210, 0.8);
+}
+
+.dark-theme .gen-6-color {
+    box-shadow: 0 0 8px var(--glow-color-6);
+    border: 1px solid rgba(255, 92, 92, 0.8);
+}
+
+.dark-theme .gen-7-color {
+    box-shadow: 0 0 8px var(--glow-color-7);
+    border: 1px solid rgba(255, 255, 85, 0.8);
 }
 
 .gen-1-color {
-    background-color: #e3f2fd; /* Light Blue */
-    border: 1px solid #90caf9;
+    background-color: var(--gen-1-color); /* Blue */
+    border: 1px solid rgba(128, 128, 128, 0.3);
 }
 
 .gen-2-color {
-    background-color: #e8f5e9; /* Light Green */
-    border: 1px solid #a5d6a7;
+    background-color: var(--gen-2-color); /* Mint Green */
+    border: 1px solid rgba(128, 128, 128, 0.3);
 }
 
 .gen-3-color {
-    background-color: #fff3e0; /* Light Orange */
-    border: 1px solid #ffcc80;
+    background-color: var(--gen-3-color); /* Peach */
+    border: 1px solid rgba(128, 128, 128, 0.3);
 }
 
 .gen-4-color {
-    background-color: #f3e5f5; /* Light Purple */
-    border: 1px solid #ce93d8;
+    background-color: var(--gen-4-color); /* Lavender */
+    border: 1px solid rgba(128, 128, 128, 0.3);
 }
 
 .gen-5-color {
-    background-color: #e0f7fa; /* Light Cyan */
-    border: 1px solid #80deea;
+    background-color: var(--gen-5-color); /* Aqua */
+    border: 1px solid rgba(128, 128, 128, 0.3);
 }
 
 .gen-6-color {
-    background-color: #ffebee; /* Light Red */
-    border: 1px solid #ef9a9a;
+    background-color: var(--gen-6-color); /* Rose */
+    border: 1px solid rgba(128, 128, 128, 0.3);
 }
 
 .gen-7-color {
-    background-color: #f9fbe7; /* Light Yellow-Green */
-    border: 1px solid #dce775;
+    background-color: var(--gen-7-color); /* Golden Yellow */
+    border: 1px solid rgba(128, 128, 128, 0.3);
+}
+
+/* Dark theme glow effects for legend colors */
+.dark-theme .gen-1-color {
+    box-shadow: 0 0 10px var(--glow-color-1);
+}
+
+.dark-theme .gen-2-color {
+    box-shadow: 0 0 10px var(--glow-color-2);
+}
+
+.dark-theme .gen-3-color {
+    box-shadow: 0 0 10px var(--glow-color-3);
+}
+
+.dark-theme .gen-4-color {
+    box-shadow: 0 0 10px var(--glow-color-4);
+}
+
+.dark-theme .gen-5-color {
+    box-shadow: 0 0 10px var(--glow-color-5);
+}
+
+.dark-theme .gen-6-color {
+    box-shadow: 0 0 10px var(--glow-color-6);
+}
+
+.dark-theme .gen-7-color {
+    box-shadow: 0 0 10px var(--glow-color-7);
 }
 
 .male-color {
-    border-left: 5px solid #3498db;
-    background-color: white;
+    border-left: 5px solid var(--accent-color);
+    background-color: var(--card-bg);
 }
 
 .female-color {
     border-left: 5px solid #e74c3c;
-    background-color: white;
+    background-color: var(--card-bg);
 }
 
 .gender-legend {
@@ -365,4 +665,58 @@ footer {
     .person h4 {
         font-size: 1rem;
     }
+}
+
+/* Theme Toggle Button */
+.theme-toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    background-color: var(--header-bg);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    border: none;
+    color: var(--header-text);
+    transition: all 0.3s ease;
+}
+
+.theme-toggle:hover {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.dark-theme .theme-toggle {
+    background-color: #2870ea;
+    box-shadow: 0 0 15px rgba(88, 166, 255, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+}
+
+.dark-theme .theme-toggle:hover {
+    box-shadow: 0 0 25px rgba(88, 166, 255, 0.8);
+    background-color: #3c7feb;
+    transform: scale(1.15) rotate(10deg);
+}
+
+.theme-toggle i {
+    font-size: 1.5rem;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.theme-toggle-animation {
+    animation: fadeIn 0.5s ease-in-out;
 }

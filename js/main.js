@@ -223,3 +223,46 @@ function findPerson(personId) {
     }
     return null;
 }
+
+// Theme Toggle Functionality
+function initializeThemeToggle() {
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    if (!themeToggleBtn) return;
+    
+    // Check for saved theme preference or use device preference
+    const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const savedTheme = localStorage.getItem('theme');
+    
+    // Apply the appropriate theme
+    if (savedTheme === 'dark' || (!savedTheme && prefersDarkScheme)) {
+        document.body.classList.add('dark-theme');
+        themeToggleBtn.innerHTML = '<i class="fas fa-sun"></i>';
+    } else {
+        themeToggleBtn.innerHTML = '<i class="fas fa-moon"></i>';
+    }
+    
+    // Add click handler
+    themeToggleBtn.addEventListener('click', () => {
+        document.body.classList.toggle('dark-theme');
+        themeToggleBtn.classList.add('theme-toggle-animation');
+        
+        // Update icon and save preference
+        if (document.body.classList.contains('dark-theme')) {
+            themeToggleBtn.innerHTML = '<i class="fas fa-sun"></i>';
+            localStorage.setItem('theme', 'dark');
+        } else {
+            themeToggleBtn.innerHTML = '<i class="fas fa-moon"></i>';
+            localStorage.setItem('theme', 'light');
+        }
+        
+        // Remove animation class after animation completes
+        setTimeout(() => {
+            themeToggleBtn.classList.remove('theme-toggle-animation');
+        }, 500);
+    });
+}
+
+// Initialize theme toggle when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    initializeThemeToggle();
+});

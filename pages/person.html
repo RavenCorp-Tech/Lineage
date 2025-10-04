@@ -5,14 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Person Details - Family Lineage</title>
     <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/dark-theme-enhancements.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         .breadcrumb {
             display: flex;
             list-style: none;
-            background-color: #f8f9fa;
+            background-color: var(--card-bg);
             padding: 0.75rem 1rem;
             border-radius: 4px;
             margin-bottom: 2rem;
+            box-shadow: 0 2px 5px var(--shadow-color);
         }
         
         .breadcrumb li {
@@ -22,7 +25,8 @@
         .breadcrumb li:after {
             content: '/';
             margin-left: 0.5rem;
-            color: #6c757d;
+            color: var(--text-color);
+            opacity: 0.7;
         }
         
         .breadcrumb li:last-child:after {
@@ -30,7 +34,7 @@
         }
         
         .breadcrumb a {
-            color: #3498db;
+            color: var(--accent-color);
             text-decoration: none;
         }
         
@@ -42,9 +46,10 @@
             display: flex;
             flex-direction: column;
             padding: 2rem;
-            background-color: white;
+            background-color: var(--card-bg);
             border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 10px var(--shadow-color);
+            transition: background-color 0.3s;
         }
         
         .person-header {
@@ -171,6 +176,10 @@
         </nav>
     </header>
 
+    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+        <i class="fas fa-moon"></i>
+    </button>
+
     <main>
         <ul class="breadcrumb" id="breadcrumb">
             <li><a href="../index.html">Home</a></li>
@@ -189,6 +198,7 @@
     </footer>
 
     <script src="../js/data.js"></script>
+    <script src="../js/main.js"></script>
     <script>
         // Set current year in footer
         document.getElementById('current-year').textContent = new Date().getFullYear();
