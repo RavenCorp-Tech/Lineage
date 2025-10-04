@@ -196,13 +196,24 @@
 <body>
     <header>
         <h1>Family Lineage</h1>
-        <nav>
-            <ul>
-                <li><a href="../index.html">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="full-tree.html">Full Tree</a></li>
-            </ul>
-        </nav>
+        <div class="header-right">
+            <div class="search-container">
+                <div class="search-box">
+                    <input type="text" id="search-input" placeholder="Search family members..." aria-label="Search family members">
+                    <button id="search-btn" aria-label="Search">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+                <div id="search-suggestions" class="search-suggestions"></div>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="full-tree.html">Full Tree</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
 
     <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">

@@ -265,4 +265,144 @@ function initializeThemeToggle() {
 // Initialize theme toggle when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
     initializeThemeToggle();
+    initializeSearchFunctionality();
 });
+
+// Search functionality
+function initializeSearchFunctionality() {
+    const searchInput = document.getElementById('search-input');
+    const searchBtn = document.getElementById('search-btn');
+    const suggestionsContainer = document.getElementById('search-suggestions');
+    
+    if (!searchInput || !suggestionsContainer) return;
+    
+    // Create an array of all people for searching
+    const allPeople = [];
+    for (const gen in familyData) {
+        const genNumber = gen.replace('generation', '');
+        for (const personId in familyData[gen]) {
+            const person = familyData[gen][personId];
+            allPeople.push({
+                id: personId,
+                name: person.name,
+                displayName: person.displayName || person.name,
+                nickname: person.nickname || '',
+                generation: genNumber,
+                gender: person.gender
+            });
+        }
+    }
+    
+    // Function to search and filter people by name
+    function searchPeople(query) {
+        if (!query) return [];
+        
+        query = query.toLowerCase();
+        return allPeople.filter(person => {
+            const nameMatch = person.name.toLowerCase().includes(query);
+            const displayNameMatch = person.displayName.toLowerCase().includes(query);
+            const nicknameMatch = person.nickname.toLowerCase().includes(query);
+            return nameMatch || displayNameMatch || nicknameMatch;
+        });
+    }
+    
+    // Function to highlight matching text in search results
+    function highlightMatch(text, query) {
+        if (!query) return text;
+        
+        const regex = new RegExp(query, 'gi');
+        return text.replace(regex, match => `<span class="highlighted-text">${match}</span>`);
+    }
+    
+    // Function to display search suggestions
+    function displaySuggestions(results, query) {
+        if (results.length === 0) {
+            suggestionsContainer.innerHTML = '<div class="suggestion-item">No matches found</div>';
+            return;
+        }
+        
+        suggestionsContainer.innerHTML = results
+            .slice(0, 10) // Limit to 10 results
+            .map(person => {
+                // Get generation color
+                const genClass = `gen-${person.generation}-color`;
+                
+                // Create suggestion item HTML
+                return `
+                    <div class="suggestion-item" data-id="${person.id}">
+                        <span class="generation-indicator ${genClass}"></span>
+                        <div>
+                            <div class="suggestion-name">${highlightMatch(person.displayName, query)}</div>
+                            ${person.nickname ? `<small>${highlightMatch(person.nickname, query)}</small>` : ''}
+                        </div>
+                        <span class="suggestion-details">Gen ${person.generation}</span>
+                    </div>
+                `;
+            })
+            .join('');
+    }
+    
+    // Handle input event for real-time suggestions
+    searchInput.addEventListener('input', function() {
+        const query = this.value.trim();
+        if (query.length >= 2) { // Show suggestions after at least 2 characters
+            const results = searchPeople(query);
+            displaySuggestions(results, query);
+            suggestionsContainer.classList.add('active');
+        } else {
+            suggestionsContainer.classList.remove('active');
+        }
+    });
+    
+    // Handle click on search button
+    searchBtn.addEventListener('click', function() {
+        const query = searchInput.value.trim();
+        if (query.length >= 2) {
+            const results = searchPeople(query);
+            if (results.length > 0) {
+                navigateToPerson(results[0].id);
+            }
+        }
+    });
+    
+    // Handle enter key in search input
+    searchInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+            const query = this.value.trim();
+            if (query.length >= 2) {
+                const results = searchPeople(query);
+                if (results.length > 0) {
+                    navigateToPerson(results[0].id);
+                }
+            }
+        }
+    });
+    
+    // Handle click on suggestion item
+    suggestionsContainer.addEventListener('click', function(e) {
+        const suggestionItem = e.target.closest('.suggestion-item');
+        if (suggestionItem) {
+            const personId = suggestionItem.dataset.id;
+            if (personId) {
+                navigateToPerson(personId);
+            }
+        }
+    });
+    
+    // Close suggestions when clicking outside
+    document.addEventListener('click', function(e) {
+        if (!searchInput.contains(e.target) && !suggestionsContainer.contains(e.target)) {
+            suggestionsContainer.classList.remove('active');
+        }
+    });
+    
+    // Add focus to show suggestions based on current input
+    searchInput.addEventListener('focus', function() {
+        const query = this.value.trim();
+        if (query.length >= 2) {
+            const results = searchPeople(query);
+            displaySuggestions(results, query);
+            suggestionsContainer.classList.add('active');
+        }
+    });
+}
